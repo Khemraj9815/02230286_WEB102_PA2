@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client-js"
+  engineType = "library"
 }
 
 datasource db {
@@ -7,16 +8,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Pokemon {
-  id     Int    @id @default(autoincrement())
-  name   String
-  userid Int
-  User   User   @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+model caught {
+  pokemon_id   Int     @id @default(autoincrement())
+  pokemon_name String @unique @db.VarChar(255)
+  pokemon_type String? @db.VarChar(255)
+  weight       String? @db.VarChar(255)
 }
 
-model User {
-  id       Int       @id @default(autoincrement())
-  email    String    @unique
-  password String
-  Pokemon  Pokemon[]
+model  userinfo {
+  email     String  @unique @db.VarChar(255)
+  hashedpwd String  @db.VarChar(255)
+  user_name String? @db.VarChar(255)
+  id        Int     @id @default(autoincrement())
 }
